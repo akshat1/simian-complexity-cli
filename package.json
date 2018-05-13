@@ -28,6 +28,7 @@
     "eslint-config-simian": "^1.1.0"
   },
   "dependencies": {
+    "command-line-args": "^5.0.2",
     "escomplex": "^2.0.0-alpha"
   }
 }

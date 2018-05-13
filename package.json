@@ -1,0 +1,33 @@
+{
+  "name": "simian-complexity-cli",
+  "version": "0.0.1",
+  "description": "CLI for escomplex.",
+  "main": "lib/index.js",
+  "bin": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "MIT",
+    "url": "git+https://github.com/akshat1/simian-complexity-cli.git"
+  },
+  "keywords": [
+    "escomplex",
+    "static",
+    "analysis",
+    "CLI"
+  ],
+  "author": "akshat.sh@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshat1/simian-complexity-cli/issues"
+  },
+  "homepage": "https://github.com/akshat1/simian-complexity-cli#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-simian": "^1.1.0"
+  },
+  "dependencies": {
+    "escomplex": "^2.0.0-alpha"
+  }
+}

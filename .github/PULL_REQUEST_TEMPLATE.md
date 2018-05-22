@@ -1,6 +1,6 @@
-### What was a problem?
+### What was the problem?
 
-{Please write here}
+{Please write here; A short description or issue number}
 
 ### How this PR fixes the problem?
 

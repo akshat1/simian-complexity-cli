@@ -1,6 +1,6 @@
 {
   "name": "simian-complexity-cli",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "CLI for escomplex.",
   "main": "lib/index.js",
   "bin": "lib/index.js",
@@ -30,8 +30,8 @@
   "dependencies": {
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
-    "escomplex": "^2.0.0-alpha",
     "glob": "^7.1.2",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "typhonjs-escomplex": "0.0.12"
   }
 }

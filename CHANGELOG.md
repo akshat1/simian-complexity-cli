@@ -1,3 +1,6 @@
+## 2.1.0 (5/31/2018; Akshat Sharma)
+- Improvements to CLI and associated code.
+
 ## 2.0.0 (5/22/2018; Akshat Sharma)
 - ES6 and JSX support thanks to typhonjs-escomplex.
 - Fixed bug in handling --help flag.

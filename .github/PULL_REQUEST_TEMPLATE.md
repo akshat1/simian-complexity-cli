@@ -9,3 +9,6 @@
 ### Additional Comments (if any)
 
 {Please write here}
+
+### TODO
+[] Updated the version and the changelog.

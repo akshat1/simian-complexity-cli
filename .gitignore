@@ -2,3 +2,4 @@ node_modules/
 .simian-complexity-data
 simian-complexity-data
 .vscode/
+*.log

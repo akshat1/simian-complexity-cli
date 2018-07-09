@@ -73,6 +73,7 @@ describe('utils/exec', function () {
         cb(expectedError, undefined, expectedStdErr);
       }
     });
+    // mockery.enable();
 
     const { exec } = require('../../lib/utils/exec');
     return exec('FOO')

@@ -2,7 +2,7 @@
 
 {Please write here; A short description or issue number}
 
-### How this PR fixes the problem?
+### How does this PR fix the problem?
 
 {Please write here}
 

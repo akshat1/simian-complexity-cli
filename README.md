@@ -17,3 +17,27 @@ Since this is still evolving, command line switches may change. You can always s
 ```
 $ simian-complexity-cli --help
 ```
+
+This will produce an output along the lines of
+```
+
+Simian Complexity CLI
+
+  🐒  JavaScript static analysis using typhonjs-escomplex  
+
+Usage
+
+  simian-complexity -o outDir -g "somedir/**/*.js"                            
+  simian-complexity -o outDir -g "somedir/**/*.js" -g "someOtherDir/**/*.jsx" 
+  simian-complexity -o outDir -s "somedir/**/*.js" -s someOtherDir/*.js       
+
+Options
+
+  -o, --out        The output directory.                                                         
+  -s, --src        The source directory. This will be scanned recursively for .js, and .jsx      
+                   files.                                                                        
+  -x, --exclude    Regex pattern to exclude files.                                               
+  --help           Prints this usage guide.                                                      
+  -v, --verbose    Pass the verbose flag to escomplex.                                           
+  -n, --name       Report name.                                                                  
+```

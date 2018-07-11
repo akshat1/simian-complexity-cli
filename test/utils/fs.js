@@ -2,7 +2,6 @@ const assert = require('assert');
 const mockery = require('mockery');
 const sinon = require('sinon');
 const nodeFS = require('fs');
-const glob = require('glob');
 
 describe('utils/fs', function() {
   beforeEach(function () {
@@ -21,6 +20,7 @@ describe('utils/fs', function() {
   it('should promisify these functions', function() {
     const expectedResolution = 'FOO';
     const promisify = sinon.stub().returns(() => Promise.resolve(expectedResolution));
+    const glob = require('glob');
     mockery.registerMock('./promisify', { promisify });
     const {
       expandSingleGlob,

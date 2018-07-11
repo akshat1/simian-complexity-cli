@@ -1,0 +1,9 @@
+{
+  "all": true,
+  "cache": true,
+  "include": ["lib/**/*.js"],
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ]
+}

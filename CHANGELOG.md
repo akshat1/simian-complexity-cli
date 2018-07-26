@@ -1,3 +1,6 @@
+## 2.2.0 (7/25/2018; Akshat Sharma)
+- No user-facing changes, but set up testing and stuff.
+
 ## 2.1.0 (5/31/2018; Akshat Sharma)
 - Improvements to CLI and associated code.
 

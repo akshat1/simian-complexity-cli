@@ -2,6 +2,7 @@ const assert = require('assert');
 const mockery = require('mockery');
 const sinon = require('sinon');
 const nodeFS = require('fs');
+const _ = require('lodash');
 
 describe('utils/fs', function() {
   beforeEach(function () {
@@ -42,11 +43,33 @@ describe('utils/fs', function() {
     assert.ok(promisify.calledWith(glob));
   });
 
-  describe('expandGlobs', function() {
-    it('should return a promise.');
-    it('should filter out undefined, and empty arrays.');
-    it('should return a flattened array.');
+  it('expandGlobs should pass tests', async function() {
+    const globResult = [
+      ['a', 'b', 'c'],
+      ['b', 'd', 'e'],
+      [],
+      undefined,
+      ['z'],
+    ];
+    // Mock promisify as a way to mock expandSingleGlob. The following line is purely constructed
+    // to help test, has no bearing on how things actually work (expect that promisify returns a
+    // function which in turn returns a promise). We want to test whether expandGlobs filters out
+    // empty arrays and undefineds. Thus the weird resolution value.
+    const promisify = sinon.stub().returns(expectedVal => Promise.resolve(Array.from(expectedVal || [expectedVal])));
+    mockery.registerMock('./promisify', { promisify });
+    const fs = require('../../lib/utils/fs');
+
+    assert.deepEqual(await fs.expandGlobs(), [], 'Should have a default patterns value of []');
+    assert.ok(fs.expandGlobs([]) instanceof Promise, 'Expected a promise from expandGlobs()');
+    assert.deepEqual(await fs.expandGlobs(globResult), _.uniq(_.flatten(globResult)), 'Should have flattened, filtered, and deduped result.');
   });
 
-  it('mkdir should call exec with mkdir -p');
+  it('mkdir should call exec with mkdir -p', async function() {
+    const testDirectoryPath = 'foo/bar/baz';
+    const exec = sinon.stub().resolves(42);
+    mockery.registerMock('./exec', { exec });
+    const fs = require('../../lib/utils/fs');
+    await fs.mkdir(testDirectoryPath);
+    exec.calledWith(`mkdir -p ${testDirectoryPath}`, 'Should have exececuted mkdir -p <dir path>');
+  });
 });

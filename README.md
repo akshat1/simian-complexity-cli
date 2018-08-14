@@ -1,4 +1,4 @@
-# escomplex-cli ![Build status button](https://api.travis-ci.org/akshat1/simian-complexity-cli.svg?branch=master)
+# escomplex-cli ![Build status button](https://api.travis-ci.org/akshat1/simian-complexity-cli.svg?branch=master) [![codecov](https://codecov.io/gh/akshat1/simian-complexity-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/akshat1/simian-complexity-cli)
 A CLI for escomplex.
 
 ## Installation

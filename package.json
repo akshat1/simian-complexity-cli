@@ -6,7 +6,6 @@
   "bin": "bin/index.js",
   "scripts": {
     "test": "NODE_ENV=test nyc mocha --recursive test/",
-    "codecov": "npm run test && codecov",
     "lint": "eslint lib/",
     "clean": "rm -rf ./simian-complexity-data"
   },

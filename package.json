@@ -1,6 +1,6 @@
 {
   "name": "simian-complexity-cli",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "CLI for escomplex.",
   "main": "lib/index.js",
   "bin": "bin/index.js",

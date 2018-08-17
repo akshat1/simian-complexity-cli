@@ -30,7 +30,7 @@ describe('cli/get-command-line-args', function() {
       assert.equal(getCommandLineArgs(), cliArgs);
       assert.equal(getCommandLineArgs(), cliArgs);
 
-      assert.equal(commandLineArgs.calledOnce, 1, 'commandLineArgs() should only have been called once.');
+      assert.ok(commandLineArgs.calledOnce, 'commandLineArgs() should only have been called once.');
     });
   });
 

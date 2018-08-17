@@ -28,7 +28,7 @@ describe('cli/print-usage-guide', function() {
   });
 
   it('should print usage guide when called without error', function() {
-    const consoleLog = sinon.spy(console, 'log');
+    const consoleLog = sinon.stub(console, 'log');
     printUsageGuide();
 
     assert.deepEqual(commandLineUsage.args, [[sections]]);
@@ -36,7 +36,7 @@ describe('cli/print-usage-guide', function() {
     consoleLog.restore();
   });
   it('should print error when called with error object', function() {
-    const consoleErr = sinon.spy(console, 'error');
+    const consoleErr = sinon.stub(console, 'error');
     const errMessage = 'FOO BAR BAZ';
     const testErr = new Error(errMessage);
     const expectedSections = [...sections];
@@ -53,7 +53,7 @@ describe('cli/print-usage-guide', function() {
   });
 
   it('should print error when called with error string', function() {
-    const consoleErr = sinon.spy(console, 'error');
+    const consoleErr = sinon.stub(console, 'error');
     const errMessage = 'FOO BAR BAZ';
     const expectedSections = [...sections];
     expectedSections[0] = {

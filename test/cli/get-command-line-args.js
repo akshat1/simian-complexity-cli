@@ -1,19 +1,10 @@
 const assert = require('assert');
-const mockery = require('mockery');
 const sinon = require('sinon');
-
-function disableMockery() {
-  mockery.deregisterAll();
-  mockery.disable();
-}
-
-function enableMockery() {
-  mockery.enable({
-    useCleanCache: true,
-    warnOnReplace: true,
-    warnOnUnregistered: false,
-  });
-}
+const {
+  mockery,
+  enableMockery,
+  disableMockery
+} = require('../mockery');
 
 describe('cli/get-command-line-args', function() {
   describe('getCommandLineArgs', function() {

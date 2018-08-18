@@ -70,4 +70,43 @@ describe('cli/get-command-line-args', function() {
       toTimeString.restore();
     });
   });
+
+  describe('getExcludes', function() {
+    this.beforeEach(enableMockery);
+    this.afterEach(disableMockery);
+
+    it('should return the excludes from the command line args', function() {
+      mockery.registerMock('command-line-args', () => ({
+        exclude: 'fubar',
+      }));
+      const { getExcludes } = require('../../lib/cli/get-command-line-args');
+      assert.equal(getExcludes(), 'fubar');
+    })
+  });
+
+  describe('getOutputDirectoryPath', function () {
+    this.beforeEach(enableMockery);
+    this.afterEach(disableMockery);
+
+    it('should return the value of the output directory option from the command line', function () {
+      mockery.registerMock('command-line-args', () => ({
+        out: 'fubar',
+      }));
+      const { getOutputDirectoryPath } = require('../../lib/cli/get-command-line-args');
+      assert.equal(getOutputDirectoryPath(), 'fubar');
+    })
+  });
+
+  describe('isHelp', function () {
+    this.beforeEach(enableMockery);
+    this.afterEach(disableMockery);
+
+    it('should return whether the --help was supplied on the cli', function () {
+      mockery.registerMock('command-line-args', () => ({
+        help: 'fubar',
+      }));
+      const { isHelp } = require('../../lib/cli/get-command-line-args');
+      assert.equal(isHelp(), 'fubar');
+    })
+  });
 });

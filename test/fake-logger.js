@@ -2,29 +2,20 @@ const sinon = require('sinon');
 
 module.exports = {
   getLogger: function() {
-    const debug = sinon.stub();
-    const error = sinon.stub();
-    const info = sinon.stub();
-    const log = sinon.stub();
-    const warn = sinon.stub();
+    const stubs = {
+      debug: sinon.stub(),
+      errorL: sinon.stub(),
+      info: sinon.stub(),
+      log: sinon.stub(),
+      verbose: sinon.stub(),
+      warn: sinon.stub(),
+    };
 
-    const stubs = [
-      debug,
-      warn,
-      error,
-      info,
-      log,
-    ];
-
-    const reset = () => stubs.forEach(s => s.reset());
+    const reset = () => Object.keys(stubs).forEach(s => s.reset());
 
     return {
-      debug,
-      error,
-      info,
-      log,
+      ...stubs,
       reset,
-      warn,
     }
   }
 }

@@ -87,4 +87,65 @@ describe('index.js', function() {
       [makeGlobs, shouldFilePathBeKept, ensureInputs].map(s => s.restore());
     });
   });
+
+  describe('makeGlobs', function() {
+    it('should make globs', function() {
+      const { makeGlobs } = require('../lib');
+      assert.deepEqual(
+        makeGlobs('/foo/bar'),
+        [
+          '/foo/bar/**/*.jsx',
+          '/foo/bar/**/*.js'
+        ]
+      );
+    });
+  });
+
+  describe('ensureInputs', function() {
+    this.beforeEach(enableMockery);
+    this.afterEach(disableMockery);
+
+    it('should return inputs if inputs is non-empty', function() {
+      const { ensureInputs } = require('../lib');
+
+      const inputs = ['foo', 'bar', 'baz'];
+      assert.deepEqual(ensureInputs(inputs), inputs);
+    });
+
+    it('should print usage guide if no inputs are present', function() {
+      const printUsageGuide = sinon.stub();
+      mockery.registerMock('./cli', { printUsageGuide });
+      const { ensureInputs } = require('../lib');
+      ensureInputs();
+      assert.ok(printUsageGuide.calledOnce);
+      assert.ok(printUsageGuide.args[0][0] instanceof Error);
+    });
+
+    it('should print usage guide if inputs array is empty', function () {
+      const printUsageGuide = sinon.stub();
+      mockery.registerMock('./cli', { printUsageGuide });
+      const { ensureInputs } = require('../lib');
+      ensureInputs([]);
+      assert.ok(printUsageGuide.calledOnce);
+      assert.ok(printUsageGuide.args[0][0] instanceof Error);
+    });
+  });
+
+  describe('shouldFilePathBeKept', function () {
+    this.beforeEach(enableMockery);
+    this.afterEach(disableMockery);
+
+    it('should return false for an excluded path and true for others', function() {
+      const getExcludes = sinon.stub().returns([
+        'foo',
+        '.*bar.*'
+      ]);
+      mockery.registerMock('./cli', { getExcludes });
+      const { shouldFilePathBeKept } = require('../lib');
+      assert.equal(shouldFilePathBeKept('baz'), true);
+      assert.equal(shouldFilePathBeKept('foo'), false);
+      assert.equal(shouldFilePathBeKept('qux'), true);
+      assert.equal(shouldFilePathBeKept('dfdgoofbardf'), false);
+    });
+  });
 });

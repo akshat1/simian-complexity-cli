@@ -5,3 +5,4 @@ simian-complexity-data
 *.log
 .nyc_output
 coverage/
+.DS_Store

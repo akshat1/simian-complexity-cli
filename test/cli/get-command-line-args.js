@@ -1,10 +1,10 @@
 const assert = require('assert');
 const sinon = require('sinon');
 const {
-  mockery,
+  disableMockery,
   enableMockery,
-  disableMockery
-} = require('../mockery');
+  mockery,
+} = require('../mocks');
 
 describe('cli/get-command-line-args', function() {
   describe('getCommandLineArgs', function() {

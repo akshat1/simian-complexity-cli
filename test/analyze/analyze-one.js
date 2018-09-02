@@ -1,11 +1,11 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { getLogger } = require('../fake-logger');
 const {
-  mockery,
+  disableMockery,
   enableMockery,
-  disableMockery
-} = require('../mockery');
+  getLogger,
+  mockery,
+} = require('../mocks');
 
 describe('analyze/analyze-one', function() {
   this.beforeEach(enableMockery);

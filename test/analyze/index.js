@@ -2,11 +2,11 @@ const path = require('path');
 const assert = require('assert');
 const sinon = require('sinon');
 const {
-  mockery,
+  disableMockery,
   enableMockery,
-  disableMockery
-} = require('../mockery');
-const { getLogger } = require('../fake-logger');
+  getLogger,
+  mockery,
+} = require('../mocks');
 
 function makeFakeFS() {
   const mkdir = sinon.stub();

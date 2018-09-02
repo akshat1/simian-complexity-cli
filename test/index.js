@@ -4,17 +4,9 @@ const {
   disableMockery,
   enableMockery,
   mockery,
-} = require('./mockery');
-
-const getFakeUtils = function() {
-  return {
-    fs: {
-      expandGlobs: sinon.stub(),
-      mkdir: sinon.stub(),
-    },
-    getLogger: require('./fake-logger').getLogger,
-  };
-}
+  getUtils,
+  getCli
+} = require('./mocks');
 
 describe('index.js', function() {
   describe('--help handling', function() {
@@ -22,11 +14,8 @@ describe('index.js', function() {
     afterEach(disableMockery);
 
     it('should print usage guide when called with the help flag.', function () {
-      const utils = getFakeUtils();
-      const cli = {
-        isHelp: () => true,
-        printUsageGuide: sinon.stub(),
-      };
+      const utils = getUtils();
+      const cli = getCli({ isHelp: true });
       mockery.registerMock('winston', {});
       mockery.registerMock('./cli', cli);
       mockery.registerMock('./utils', utils);
@@ -50,12 +39,16 @@ describe('index.js', function() {
       const filteredPaths = expandedGlobs.slice(0, 3); // we'll set up the filter function to let first three items pass
       const reports = [{a: 0}, {b: 1}, {c: 2}];
       const aggregatedReports = [{d: 0}, {e: 1}, {f: 2}];
-      const utils = getFakeUtils();
-      const cli = {
-        isHelp: () => false,
-        getSourceDirectoryPath: () => sourceDirectoryPath,
-        getOutputDirectoryPath: () => outputDirectoryPath,
-      };
+      const utils = getUtils({ globs });
+      const {
+        shouldFilePathBeKept,
+        ensureInputs
+      } = utils;
+      const cli = getCli({
+        isHelp: false,
+        sourceDirectoryPath,
+        outputDirectoryPath,
+      });
       const analyze = sinon.stub().resolves(reports);
       const aggregate = sinon.stub().resolves(aggregatedReports);
       mockery.registerMock('./utils', utils);
@@ -63,16 +56,13 @@ describe('index.js', function() {
       mockery.registerMock('./analyze', { analyze });
       mockery.registerMock('./aggregate', { aggregate });
       const mod = require('../lib/index');
-      const makeGlobs = sinon.stub(mod, 'makeGlobs').returns(globs);
       const expandGlobs = utils.fs.expandGlobs;
       expandGlobs.resolves(expandedGlobs);
-      const shouldFilePathBeKept = sinon.stub(mod, 'shouldFilePathBeKept');
       shouldFilePathBeKept
         .onFirstCall().returns(true)
         .onSecondCall().returns(true)
         .onThirdCall().returns(true);
       shouldFilePathBeKept.returns(false);
-      const ensureInputs = sinon.stub(mod, 'ensureInputs').resolves(0);
 
       // The call
       await mod.main();
@@ -82,70 +72,6 @@ describe('index.js', function() {
       assert.deepEqual(ensureInputs.args, [[filteredPaths]], 'should have ensured inputs exist');
       assert.deepEqual(analyze.args, [[filteredPaths]], 'should have analyzed filtered paths');
       assert.deepEqual(aggregate.args, [[reports]], 'should have aggregated reports');
-
-      // The teardown. Restore all stubs.
-      [makeGlobs, shouldFilePathBeKept, ensureInputs].map(s => s.restore());
-    });
-  });
-
-  describe('makeGlobs', function() {
-    it('should make globs', function() {
-      const { makeGlobs } = require('../lib');
-      assert.deepEqual(
-        makeGlobs('/foo/bar'),
-        [
-          '/foo/bar/**/*.jsx',
-          '/foo/bar/**/*.js'
-        ]
-      );
-    });
-  });
-
-  describe('ensureInputs', function() {
-    this.beforeEach(enableMockery);
-    this.afterEach(disableMockery);
-
-    it('should return inputs if inputs is non-empty', function() {
-      const { ensureInputs } = require('../lib');
-
-      const inputs = ['foo', 'bar', 'baz'];
-      assert.deepEqual(ensureInputs(inputs), inputs);
-    });
-
-    it('should print usage guide if no inputs are present', function() {
-      const printUsageGuide = sinon.stub();
-      mockery.registerMock('./cli', { printUsageGuide });
-      const { ensureInputs } = require('../lib');
-      ensureInputs();
-      assert.ok(printUsageGuide.calledOnce);
-      assert.ok(printUsageGuide.args[0][0] instanceof Error);
-    });
-
-    it('should print usage guide if inputs array is empty', function () {
-      const printUsageGuide = sinon.stub();
-      mockery.registerMock('./cli', { printUsageGuide });
-      const { ensureInputs } = require('../lib');
-      ensureInputs([]);
-      assert.ok(printUsageGuide.calledOnce);
-      assert.ok(printUsageGuide.args[0][0] instanceof Error);
-    });
-  });
-
-  describe('shouldFilePathBeKept', function () {
-    this.beforeEach(enableMockery);
-    this.afterEach(disableMockery);
-
-    it('should return false for an excluded path and true for others', function() {
-      const getExcludes = sinon.stub().returns([
-        'foo',
-        '.*bar.*'
-      ]);
-      mockery.registerMock('./cli', { getExcludes });
-      const { shouldFilePathBeKept } = require('../lib');
-      assert.equal(shouldFilePathBeKept('baz'), true);
-      assert.equal(shouldFilePathBeKept('foo'), false);
-      assert.equal(shouldFilePathBeKept('qux'), true);
-      assert.equal(shouldFilePathBeKept('dfdgoofbardf'), false);
     });
   });
 });

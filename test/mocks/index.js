@@ -1,11 +1,13 @@
 const cli = require('./cli');
+const fs = require('./fs');
 const logger = require('./logger');
-const utils = require('./utils');
 const mockery = require('./mockery');
+const utils = require('./utils');
 
 module.exports = {
   ...cli,
+  ...fs,
   ...logger,
-  ...utils,
   ...mockery,
+  ...utils,
 };

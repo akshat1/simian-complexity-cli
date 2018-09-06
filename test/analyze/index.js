@@ -4,19 +4,10 @@ const sinon = require('sinon');
 const {
   disableMockery,
   enableMockery,
+  getFS,
   getLogger,
   mockery,
 } = require('../mocks');
-
-function makeFakeFS() {
-  const mkdir = sinon.stub();
-  const writeFile = sinon.stub();
-
-  return {
-    mkdir,
-    writeFile,
-  };
-}
 
 describe('analyze', function() {
   this.beforeEach(enableMockery);
@@ -26,7 +17,7 @@ describe('analyze', function() {
     const sourceFilePath = '/foo/bar/baz/qux.js';
     const reportFilePath = '/output/foo/bar/baz/qux.js.json';
     const getReportFilePath = sinon.stub().returns(reportFilePath);
-    const fs = makeFakeFS();
+    const fs = getFS();
     fs.mkdir.resolves(0);
     fs.writeFile.resolves(0);
     mockery.registerMock('../utils', { fs, getLogger, getReportFilePath });

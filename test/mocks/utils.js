@@ -1,17 +1,17 @@
 const sinon = require('sinon');
+const { getFS } = require('./fs');
 
 module.exports = {
   getUtils: function(opts = {}) {
-    const { globs } = opts;
+    const { globs, commit } = opts;
     return {
-      fs: {
-        expandGlobs: sinon.stub(),
-        mkdir: sinon.stub(),
-      },
+      ensureInputs: sinon.stub().resolves(0),
+      fs: getFS(),
+      getCommit: sinon.stub().resolves(commit),
       getLogger: require('../mocks').getLogger,
       makeGlobs: sinon.stub().returns(globs),
       shouldFilePathBeKept: sinon.stub(),
-      ensureInputs: sinon.stub().resolves(0),
+      getReportFilePath: sinon.stub().resolves(opts.reportFilePath),
     };
   }
 }

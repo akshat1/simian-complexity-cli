@@ -2,7 +2,6 @@ const assert = require('assert');
 const {
   calculateAggregates,
   makeMetricsObject,
-  reducer,
 } = require('../../lib/aggregate/calculate-aggregates');
 
 describe('aggregate', function() {
@@ -28,14 +27,8 @@ describe('aggregate', function() {
         average: makeMetricsObject(),
       });
     });
-  });
 
-  describe('reducer', function() {
-    it('should not explode when no report is provided', function() {
-      assert.deepEqual(reducer({ total: {}, average: {}}, {}), { total: {}, average: {}});
-    });
-
-    it('update totals', function() {
+    it('should calculate values', function() {
       const testMethod = {
         cyclomatic: 1,
         sloc: {
@@ -56,9 +49,7 @@ describe('aggregate', function() {
         ],
       };
 
-      const total = { ...makeMetricsObject(), numberOfMethods: 0 };
-      const average = makeMetricsObject();
-      const result = reducer({ total, average }, { report: testReport });
+      const result = calculateAggregates([{ report: testReport }]);
       assert.deepEqual(result, {
         total: {
           cyclomatic: 3,

@@ -1,8 +1,9 @@
-node_modules/
+.DS_Store
+.nyc_output
 .simian-complexity-data
-simian-complexity-data
 .vscode/
 *.log
-.nyc_output
 coverage/
-.DS_Store
+node_modules/
+simian-complexity-data
+test-run.sh

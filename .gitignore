@@ -6,4 +6,3 @@ simian-complexity-data
 .nyc_output
 coverage/
 .DS_Store
-test-run.sh

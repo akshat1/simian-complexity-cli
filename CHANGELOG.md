@@ -1,5 +1,8 @@
+## 3.0.0 (10/10/2018; Akshat Sharma)
+- We now calculate weighted average of the metrics we care about.
+
 ## 2.2.1 (8/12/2018; Akshat Sharma)
--  Lots of tests.
+- Lots of tests.
 
 ## 2.2.0 (7/25/2018; Akshat Sharma)
 - Report files now contain dependency information. Set up testing and stuff.

@@ -10,7 +10,7 @@
     "clean": "rm -rf ./simian-complexity-data"
   },
   "repository": {
-    "type": "MIT",
+    "type": "git",
     "url": "git+https://github.com/akshat1/simian-complexity-cli.git"
   },
   "keywords": [

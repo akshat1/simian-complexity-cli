@@ -20,11 +20,14 @@
     "CLI"
   ],
   "author": "akshat.sh@gmail.com",
-  "license": "MIT",
+  "license": "GPL-2.0-only",
   "bugs": {
     "url": "https://github.com/akshat1/simian-complexity-cli/issues"
   },
   "homepage": "https://github.com/akshat1/simian-complexity-cli#readme",
+  "engines": {
+    "node": ">=8.0"
+  },
   "devDependencies": {
     "codecov": "^3.0.4",
     "eslint": "^4.19.1",

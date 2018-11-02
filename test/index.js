@@ -21,7 +21,7 @@ describe('index.js', function() {
       mockery.registerMock('./utils', utils);
       mockery.registerMock('../utils', utils);
 
-      require('../lib/index').main();
+      require('../src/index').main();
       assert.ok(cli.printUsageGuide.calledOnce);
     });
   });
@@ -55,7 +55,7 @@ describe('index.js', function() {
       mockery.registerMock('./cli', cli);
       mockery.registerMock('./analyze', { analyze });
       mockery.registerMock('./aggregate', { aggregate });
-      const mod = require('../lib/index');
+      const mod = require('../src/index');
       const expandGlobs = utils.fs.expandGlobs;
       expandGlobs.resolves(expandedGlobs);
       shouldFilePathBeKept

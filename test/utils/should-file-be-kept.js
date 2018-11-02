@@ -16,7 +16,7 @@ describe('shouldFilePathBeKept', function () {
       '.*bar.*'
     ];
     mockery.registerMock('../cli', getCli({ excludes }));
-    const { shouldFilePathBeKept } = require('../../lib/utils');
+    const { shouldFilePathBeKept } = require('../../src/utils');
     assert.equal(shouldFilePathBeKept('baz'), true);
     assert.equal(shouldFilePathBeKept('foo'), false);
     assert.equal(shouldFilePathBeKept('qux'), true);

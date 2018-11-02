@@ -28,7 +28,7 @@ describe('utils/fs', function() {
       readFile,
       stat,
       writeFile,
-    } = require('../../lib/utils/fs');
+    } = require('../../src/utils/fs');
 
     assert(typeof readFile === 'function', 'Expected a function exported as readFile');
     assert.ok(promisify.calledWith(nodeFS.readFile));
@@ -57,7 +57,7 @@ describe('utils/fs', function() {
     // empty arrays and undefineds. Thus the weird resolution value.
     const promisify = sinon.stub().returns(expectedVal => Promise.resolve(Array.from(expectedVal || [expectedVal])));
     mockery.registerMock('./promisify', { promisify });
-    const fs = require('../../lib/utils/fs');
+    const fs = require('../../src/utils/fs');
 
     assert.deepEqual(await fs.expandGlobs(), [], 'Should have a default patterns value of []');
     assert.ok(fs.expandGlobs([]) instanceof Promise, 'Expected a promise from expandGlobs()');
@@ -68,7 +68,7 @@ describe('utils/fs', function() {
     const testDirectoryPath = 'foo/bar/baz';
     const exec = sinon.stub().resolves(42);
     mockery.registerMock('./exec', { exec });
-    const fs = require('../../lib/utils/fs');
+    const fs = require('../../src/utils/fs');
     await fs.mkdir(testDirectoryPath);
     exec.calledWith(`mkdir -p ${testDirectoryPath}`, 'Should have exececuted mkdir -p <dir path>');
   });

@@ -15,7 +15,7 @@ describe('cli/get-command-line-args', function() {
       const cliArgs = 42;
       const commandLineArgs = sinon.stub().returns(cliArgs);
       mockery.registerMock('command-line-args', commandLineArgs);
-      const { getCommandLineArgs } = require('../../lib/cli/get-command-line-args');
+      const { getCommandLineArgs } = require('../../src/cli/get-command-line-args');
 
       assert.equal(getCommandLineArgs(), cliArgs);
       assert.equal(getCommandLineArgs(), cliArgs);
@@ -34,7 +34,7 @@ describe('cli/get-command-line-args', function() {
         name: 'fubar',
       }));
 
-      const { getReportName } = require('../../lib/cli/get-command-line-args');
+      const { getReportName } = require('../../src/cli/get-command-line-args');
       assert.equal(await getReportName(), 'fubar');
     });
 
@@ -44,7 +44,7 @@ describe('cli/get-command-line-args', function() {
         getCommit: () => Promise.resolve('fubar')
       });
 
-      const { getReportName } = require('../../lib/cli/get-command-line-args');
+      const { getReportName } = require('../../src/cli/get-command-line-args');
       assert.equal(await getReportName(), 'Git:fubar');
     });
 
@@ -56,7 +56,7 @@ describe('cli/get-command-line-args', function() {
         getCommit: () => Promise.reject('blah')
       });
 
-      const { getReportName } = require('../../lib/cli/get-command-line-args');
+      const { getReportName } = require('../../src/cli/get-command-line-args');
       assert.equal(await getReportName(), 'fubar');
       toTimeString.restore();
     });
@@ -70,7 +70,7 @@ describe('cli/get-command-line-args', function() {
       mockery.registerMock('command-line-args', () => ({
         exclude: 'fubar',
       }));
-      const { getExcludes } = require('../../lib/cli/get-command-line-args');
+      const { getExcludes } = require('../../src/cli/get-command-line-args');
       assert.equal(getExcludes(), 'fubar');
     })
   });
@@ -83,7 +83,7 @@ describe('cli/get-command-line-args', function() {
       mockery.registerMock('command-line-args', () => ({
         out: 'fubar',
       }));
-      const { getOutputDirectoryPath } = require('../../lib/cli/get-command-line-args');
+      const { getOutputDirectoryPath } = require('../../src/cli/get-command-line-args');
       assert.equal(getOutputDirectoryPath(), 'fubar');
     })
   });
@@ -96,7 +96,7 @@ describe('cli/get-command-line-args', function() {
       mockery.registerMock('command-line-args', () => ({
         help: 'fubar',
       }));
-      const { isHelp } = require('../../lib/cli/get-command-line-args');
+      const { isHelp } = require('../../src/cli/get-command-line-args');
       assert.equal(isHelp(), 'fubar');
     })
   });

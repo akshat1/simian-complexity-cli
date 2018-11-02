@@ -4,6 +4,7 @@
 .vscode/
 *.log
 coverage/
+lib/
 node_modules/
 simian-complexity-data
 test-run.sh

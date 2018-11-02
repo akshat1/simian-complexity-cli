@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { promisify } = require('../../lib/utils/promisify');
+const { promisify } = require('../../src/utils/promisify');
 
 describe('promisify', function() {
   it('should throw an error if not provided a function', function() {

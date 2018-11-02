@@ -16,7 +16,7 @@ describe('utils/exec', function () {
   });
 
   it('should return a promise', function () {
-    const { exec } = require('../../lib/utils/exec');
+    const { exec } = require('../../src/utils/exec');
     assert.ok(exec('ls') instanceof Promise, 'exec(ls) is not a promise');
   });
   
@@ -29,7 +29,7 @@ describe('utils/exec', function () {
     });
     // mockery.enable();
 
-    const { exec } = require('../../lib/utils/exec');
+    const { exec } = require('../../src/utils/exec');
     return exec('FOO').then(str => assert.equal(str, expectedStdOutValue));
   })
 
@@ -42,7 +42,7 @@ describe('utils/exec', function () {
     });
     // mockery.enable();
 
-    const { exec } = require('../../lib/utils/exec');
+    const { exec } = require('../../src/utils/exec');
     return exec('FOO')
       .then((() => assert.fail('Should not have resolved.')))
       .catch(err => assert.equal(err.stdErr, expectedStdErrValue));
@@ -58,7 +58,7 @@ describe('utils/exec', function () {
     });
     // mockery.enable();
 
-    const { exec } = require('../../lib/utils/exec');
+    const { exec } = require('../../src/utils/exec');
     return exec('FOO')
       .then((() => assert.fail('Should not have resolved.')))
       .catch(err => assert.deepEqual(err, expectedError));
@@ -74,7 +74,7 @@ describe('utils/exec', function () {
       }
     });
 
-    const { exec } = require('../../lib/utils/exec');
+    const { exec } = require('../../src/utils/exec');
     return exec('FOO')
       .then((() => assert.fail('Should not have resolved.')))
       .catch(err => assert.deepEqual(err, expectedError));

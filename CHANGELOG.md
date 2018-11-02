@@ -1,3 +1,6 @@
+## 4.1.0 (11/02/2018; Akshat Sharma)
+- We now support older versions of node.
+
 ## 4.0.0 (10/10/2018; Akshat Sharma)
 - Don't put report into a subdirectory with the gitcommit/report generation time (so now only one report lives in the output directory).
 

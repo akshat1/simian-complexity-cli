@@ -2,7 +2,7 @@ const assert = require('assert');
 
 describe('makeGlobs', function() {
   it('should make globs', function() {
-    const { makeGlobs } = require('../../lib/utils');
+    const { makeGlobs } = require('../../src/utils');
     assert.deepEqual(
       makeGlobs('/foo/bar'),
       [

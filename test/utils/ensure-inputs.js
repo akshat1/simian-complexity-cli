@@ -13,7 +13,7 @@ describe('ensureInputs', function() {
 
   it('should return inputs if inputs is non-empty', function() {
     mockery.registerMock('./utils', getUtils());
-    const { ensureInputs } = require('../../lib/utils');
+    const { ensureInputs } = require('../../src/utils');
 
     const inputs = ['foo', 'bar', 'baz'];
     assert.deepEqual(ensureInputs(inputs), inputs);
@@ -24,7 +24,7 @@ describe('ensureInputs', function() {
     const cli = getCli();
     const { printUsageGuide } = cli;
     mockery.registerMock('../cli', cli);
-    const foo = require('../../lib/utils');
+    const foo = require('../../src/utils');
     const { ensureInputs } = foo;
     ensureInputs();
     assert.ok(printUsageGuide.calledOnce);
@@ -35,7 +35,7 @@ describe('ensureInputs', function() {
     const cli = getCli();
     const { printUsageGuide } = cli;
     mockery.registerMock('../cli', cli);
-    const { ensureInputs } = require('../../lib/utils');
+    const { ensureInputs } = require('../../src/utils');
     ensureInputs([]);
     assert.ok(printUsageGuide.calledOnce);
     assert.ok(printUsageGuide.args[0][0] instanceof Error);

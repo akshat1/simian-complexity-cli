@@ -2,7 +2,7 @@ const assert = require('assert');
 const {
   evaluate,
   makeMetricsObject,
-} = require('../../lib/aggregate/model');
+} = require('../../src/aggregate/model');
 
 
 describe('aggregate/model', function() {

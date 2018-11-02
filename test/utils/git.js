@@ -19,8 +19,8 @@ describe('utils/git', function() {
   describe('getCommit()', function() {
     it('should return a cleaned stdOut value', async function() {
       const exec = sinon.stub().resolves('fubar\n');
-      mockery.registerMock('./exec', { exec });
-      const git = require('../../lib/utils/git');
+      mockery.registerMock('./exec', { exec });
+      const git = require('../../src/utils/git');
       assert.equal(await git.getCommit(), 'fubar');
     });
 
@@ -29,7 +29,7 @@ describe('utils/git', function() {
         stdErr: 'fatal: Not a git repository (or any of the parent directories): .git\n'
       });
       mockery.registerMock('./exec', { exec });
-      const git = require('../../lib/utils/git');
+      const git = require('../../src/utils/git');
       return git.getCommit()
         .catch(function(err) {
           assert.equal(err.type, 'NotARepoError');
@@ -40,7 +40,7 @@ describe('utils/git', function() {
       const exec = sinon.stub().rejects('FUBAR');
 
       mockery.registerMock('./exec', { exec });
-      const git = require('../../lib/utils/git');
+      const git = require('../../src/utils/git');
       return git.getCommit()
         .catch(function(err) {
           assert.equal(err, 'FUBAR');

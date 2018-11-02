@@ -1,4 +1,4 @@
-const reportSelectors = require('../../lib/selectors/report');
+const reportSelectors = require('../../src/selectors/report');
 const { testSelectors } = require('./test-selectors');
 describe('selectors/report', function() {
   testSelectors(

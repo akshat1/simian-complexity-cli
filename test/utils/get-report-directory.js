@@ -45,42 +45,4 @@ describe('utils/get-report-directory', function() {
     assert.ok(rejectedForNoPath);
     assert.ok(rejectedForInvalidPath);
   });
-
-  it('should work correctly when source directory is a git directory', async function () {
-    const gitHash = '112358132134';
-    const outputDirPath = 'output';
-    mockery.registerMock('../cli', {
-      getSourceDirectoryPath: () => '/FOO/BAR',
-      getOutputDirectoryPath: () => outputDirPath,
-    });
-    mockery.registerMock('./git', {
-      getCommit: () => Promise.resolve(gitHash)
-    });
-
-    const { getReportFilePath } = require('../../lib/utils/get-report-directory');
-    assert.equal(
-      await getReportFilePath('/FOO/BAR/BAZ/QUX.js'),
-      `${outputDirPath}/Git:${gitHash}/BAZ/QUX.js.json`,
-    );
-  });
-
-  it('should work correctly when source directory is not a git directory', async function () {
-    const reportGenerationTime = '112358132134';
-    const outputDirPath = 'output';
-    mockery.registerMock('../cli', {
-      getSourceDirectoryPath: () => '/FOO/BAR',
-      getOutputDirectoryPath: () => outputDirPath,
-      reportGenerationTime,
-    });
-    mockery.registerMock('./git', {
-      getCommit: () => Promise.reject(new NotARepoError('blah')),
-      NotARepoError,
-    });
-
-    const { getReportFilePath } = require('../../lib/utils/get-report-directory');
-    assert.equal(
-      await getReportFilePath('/FOO/BAR/BAZ/QUX.js'),
-      `${outputDirPath}/Time:${reportGenerationTime}/BAZ/QUX.js.json`,
-    );
-  })
 });

@@ -6,12 +6,16 @@ A CLI for escomplex.
 $ npm install -g simian-complexity-cli
 ```
 
+You will need to have node > 7.6.
+
 ## Usage
 ```
 $ simian-complexity-cli "/Users/foo/git/plato" -x "\/test\/" -x "Gruntfile"
 ```
 
-This will output JSON files corresponding to each js and jsx files in `/Users/foo/git/plato`, while excluding `/test/`, and `Gruntfile`. The output will be placed in `/Users/foo/git/plato/simian-complexity-data/Git:<git commit hash>`.
+This will output JSON files corresponding to each js and jsx files in `/Users/foo/git/plato`, while excluding `/test/`, and `Gruntfile`. The output will be placed in `/Users/foo/git/plato/simian-complexity-data/` (but you can specify the output location using the --out flag).
+
+We will also place an aggregatation of various complexity metrics (continaing total, average, and weighted average values) into the same directory as `simian-aggregated-report.json`.
 
 Since this is still evolving, command line switches may change. You can always see the latest usage guide by executing
 ```

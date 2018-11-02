@@ -6,8 +6,6 @@ A CLI for escomplex.
 $ npm install -g simian-complexity-cli
 ```
 
-You will need to have node > 7.6.
-
 ## Usage
 ```
 $ simian-complexity-cli "/Users/foo/git/plato" -x "\/test\/" -x "Gruntfile"

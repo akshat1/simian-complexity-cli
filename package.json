@@ -1,7 +1,7 @@
 {
   "name": "simian-complexity-cli",
-  "version": "3.0.0",
-  "description": "CLI for escomplex.",
+  "version": "4.0.0",
+  "description": "JS complexity analysis",
   "main": "lib/index.js",
   "bin": "bin/index.js",
   "scripts": {

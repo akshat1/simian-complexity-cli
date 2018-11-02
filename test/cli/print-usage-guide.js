@@ -14,7 +14,7 @@ describe('cli/print-usage-guide', function() {
     commandLineUsage = sinon.stub().returns(cmdLnUsageOutput);
     mockery.registerMock('command-line-usage', commandLineUsage);
 
-    const pugModule = require('../../lib/cli/print-usage-guide');
+    const pugModule = require('../../src/cli/print-usage-guide');
     printUsageGuide = pugModule.printUsageGuide;
     sections = pugModule.sections;
   });

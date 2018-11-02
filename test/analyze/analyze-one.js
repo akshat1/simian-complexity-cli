@@ -22,7 +22,7 @@ describe('analyze/analyze-one', function() {
       fs: { readFile },
     });
     mockery.registerMock('typhonjs-escomplex', { analyzeModule });
-    const { analyzeOne } = require('../../lib/analyze/analyze-one');
+    const { analyzeOne } = require('../../src/analyze/analyze-one');
 
     const result = await analyzeOne(filePath);
     assert.deepEqual(result, {

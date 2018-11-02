@@ -1,6 +1,5 @@
 const assert = require('assert');
 const mockery = require('mockery');
-const { NotARepoError } = require('../../lib/utils/git');
 
 describe('utils/get-report-directory', function() {
   this.beforeAll(function() {
@@ -25,7 +24,7 @@ describe('utils/get-report-directory', function() {
       getSourceDirectoryPath: () => '/FOO/BAR',
     });
 
-    const { getReportFilePath } = require('../../lib/utils/get-report-directory');
+    const { getReportFilePath } = require('../../src/utils/get-report-directory');
     let rejectedForNoPath, rejectedForInvalidPath;
 
     try {

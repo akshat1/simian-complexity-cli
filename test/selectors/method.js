@@ -1,4 +1,4 @@
-const methodSelectors = require('../../lib/selectors/method');
+const methodSelectors = require('../../src/selectors/method');
 const { testSelectors } = require('./test-selectors');
 describe('selectors/method', function() {
   testSelectors(

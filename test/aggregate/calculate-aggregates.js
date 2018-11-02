@@ -12,7 +12,7 @@ const {
   evaluate,
   makeMetricsObject,
   makeAverageObject,
-} = require('../../lib/aggregate/model');
+} = require('../../src/aggregate/model');
 
 describe('aggregates/calculate-aggregates', function() {
   describe('calculateAggregates', function() {
@@ -22,7 +22,7 @@ describe('aggregates/calculate-aggregates', function() {
     this.beforeAll(function() {
       enableMockery();
       mockery.registerMock('../cli', { getSourceDirectoryPath });
-      calculateAggregates = require('../../lib/aggregate/calculate-aggregates').calculateAggregates;
+      calculateAggregates = require('../../src/aggregate/calculate-aggregates').calculateAggregates;
     });
 
     this.afterAll(function() {
@@ -109,7 +109,7 @@ describe('aggregates/calculate-aggregates', function() {
     this.beforeAll(function() {
       enableMockery();
       mockery.registerMock('../cli', cli);
-      getWeights = require('../../lib/aggregate/calculate-aggregates').getWeights;
+      getWeights = require('../../src/aggregate/calculate-aggregates').getWeights;
     });
     this.afterAll(disableMockery);
 
@@ -154,7 +154,7 @@ describe('aggregates/calculate-aggregates', function() {
     this.afterAll(disableMockery);
 
     it('should return totals', function() {
-      const { evaluate, getReportTotals } = require('../../lib/aggregate/calculate-aggregates');
+      const { evaluate, getReportTotals } = require('../../src/aggregate/calculate-aggregates');
 
       const makeMethod = (cyclomatic, bugs, difficulty, volume, sloc) => ({
         cyclomatic,

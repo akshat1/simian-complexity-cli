@@ -24,7 +24,7 @@ describe('aggregate/index', function () {
     mockery.registerMock('../cli', cli);
     mockery.registerMock('../utils', utils);
     mockery.registerMock('./calculate-aggregates', { calculateAggregates });
-    const { aggregate } = require('../../lib/aggregate');
+    const { aggregate } = require('../../src/aggregate');
     const expectedReport = {
       calculatedAggregates,
       generatedAt: reportGenerationTime.toISOString(),

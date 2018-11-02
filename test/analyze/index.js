@@ -24,7 +24,7 @@ describe('analyze', function() {
     const reportObject = { report: 'object' };
     const analyzeOne = sinon.stub().resolves(reportObject);
     mockery.registerMock('./analyze-one', { analyzeOne })
-    const { analyze } = require('../../lib/analyze');
+    const { analyze } = require('../../src/analyze');
     const result = await analyze([sourceFilePath]);
 
     assert.deepEqual(fs.mkdir.args, [[path.dirname(reportFilePath)]], 'should have created target directory');

@@ -1,10 +1,22 @@
+const cli = require('../cli');
 const escomplex = require('typhonjs-escomplex');
 const {
   fs,
-  getLogger
+  getLogger,
 } = require('../utils');
-
+// TODO: let's have a single utils namespace
+const { getDependencyPathRelativeToProjectRoot } = require('../aggregate/utils');
 const logger = getLogger('analyze');
+
+// TODO: Should we make report immutable?
+const transformReport = (report, filePath) => {
+  const transformPath = dependency => ({
+    ...dependency,
+    path: getDependencyPathRelativeToProjectRoot(cli.getSourceDirectoryPath(), filePath, dependency.path),
+  })
+  report.dependencies = report.dependencies.map(transformPath);
+  return report;
+}
 
 /**
  * Analyse the specified file and return the analysis report as an object.
@@ -22,7 +34,7 @@ async function analyzeOne(filePath) {
     );
     return {
       filePath,
-      report,
+      report: transformReport(report, filePath),
       source,
     };
   } catch (err)

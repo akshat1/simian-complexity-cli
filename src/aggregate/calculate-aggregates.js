@@ -8,7 +8,6 @@ const {
   makeMetricsObject,
 } = require('./model');
 const {
-  getDependencyPathRelativeToProjectRoot,
   withoutExtension,
 } = require('./utils');
 
@@ -29,13 +28,13 @@ const {
  */
 function getWeights(reports) {
   const weights = {};
-  for(let { filePath, report } of reports) {
+  for(let { report } of reports) {
     const { dependencies } = report;
     for (let dependency of dependencies) {
       if (dependency.path.charAt(0) !== '.') {
         continue;
       }
-      const dependencyPath = getDependencyPathRelativeToProjectRoot(cli.getSourceDirectoryPath(), filePath, dependency.path);
+      const dependencyPath = dependency.path;
       weights[dependencyPath] = (weights[dependencyPath] || 0) + 1;
     }
   }

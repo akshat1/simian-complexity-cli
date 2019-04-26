@@ -20,6 +20,8 @@ function getCommandLineArgs() {
     if(process.env.NODE_ENV === 'test') {
       return {};
     }
+
+    throw err;
   }
 }
 

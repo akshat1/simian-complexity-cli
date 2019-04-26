@@ -14,7 +14,12 @@ const logger = getLogger('analyze');
 async function analyzeOne(filePath) {
   try {
     const source = (await fs.readFile(filePath)).toString();
-    const report = await escomplex.analyzeModule(source, { commonjs: true });
+    const report = await escomplex.analyzeModule(
+      // codesplit(import('foo')) is apparently a syntax error. Curse you babel and TC39 *shakes-fist*
+      // i love democracy.
+      source.replace(/codesplit\(import\(([^\)]*)\)\)/g, 'require($1)'),  // eslint-disable-line
+      { commonjs: true }
+    );
     return {
       filePath,
       report,

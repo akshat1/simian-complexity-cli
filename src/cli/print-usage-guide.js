@@ -9,9 +9,9 @@ const sections = [
   {
     header: 'Usage',
     content: [
-      'simian-complexity -o outDir -g "somedir/**/*.js"',
-      'simian-complexity -o outDir -g "somedir/**/*.js" -g "someOtherDir/**/*.jsx"',
-      'simian-complexity -o outDir -s "somedir/**/*.js" -s someOtherDir/*.js',
+      'simian-complexity -o outDir -s "srcDir"',
+      'simian-complexity -o outDir -s "srcDir" -x "/test\.js(x)?/"',
+      'simian-complexity -o outDir -s "srcDir" -x "/test\.js(x)?/" -v',
     ],
   },
   {

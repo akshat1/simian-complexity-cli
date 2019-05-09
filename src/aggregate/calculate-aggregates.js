@@ -1,15 +1,52 @@
-const path = require('path');
 const Report = require('../selectors/report');
 const Method = require('../selectors/method');
-const cli = require('../cli');
 const {
   evaluate,
   makeAverageObject,
   makeMetricsObject,
-} = require('./model');
-const {
-  withoutExtension,
-} = require('./utils');
+} = require('../model/metrics');
+const cli = require('../cli');
+const path = require('path');
+const { withoutExtension } = require('../utils');
+const { makeEdge, makeTree, getSubTree, } = require('../model/tree');
+
+/**
+ * Given a bunch of reports, returns a map of dependents (as opposed to dependencies). This means
+ * each source file S is a node, and each source file directly importing it is a child of S.
+ *
+ * @param {Report} reports -
+ * @returns {Tree} - A tree as described above.
+ */
+function getDependentsTree(reports) {
+  const edges = [];
+  reports.forEach(({ id, report }) => {
+    edges.push(...report.dependencies.map(d => makeEdge(
+      d.path,
+      id
+    )));
+  });
+
+  return makeTree(edges);
+}
+
+/**
+ * Given a bunch of reports, returns a map of dependencies (as opposed to dependents). This means
+ * each source file S is a node, and each source file directly importing it is a *parent* of S.
+ *
+ * @param {Report} reports -
+ * @returns {Tree} - A tree as described above.
+ */
+function getDependenciesTree(reports) {
+  const edges = [];
+  reports.forEach(({ id, report }) => {
+    edges.push(...report.dependencies.map(d => makeEdge(
+      id,
+      d.path,
+    )));
+  });
+
+  return makeTree(edges);
+}
 
 /**
  * Given a list of report objects (each containing a list of dependencies), returns an object
@@ -24,20 +61,16 @@ const {
  * *Note* Source file paths, the key in the returned map, is relative to the project root. 
  *
  * @param {Object[]} reports - A list of report objects.
+ * @param {Tree} dependents -
  * @returns {Object<string, number>} - A weights map as described above.
  */
-function getWeights(reports) {
+function getWeights(reports, dependents) {
   const weights = {};
-  for(let { report } of reports) {
-    const { dependencies } = report;
-    for (let dependency of dependencies) {
-      if (dependency.path.charAt(0) !== '.') {
-        continue;
-      }
-      const dependencyPath = dependency.path;
-      weights[dependencyPath] = (weights[dependencyPath] || 0) + 1;
-    }
-  }
+
+  reports.forEach(r => {
+    const subTree = getSubTree(r.id, dependents);
+    weights[r.id] = subTree.nodes.size - 1;
+  });
 
   return weights;
 }
@@ -65,11 +98,11 @@ function getReportTotals(report) {
   return total;
 }
 
-function calculateAggregates(reports = []) {
+function calculateAggregates(reports = [], dependents) {
   const total = makeMetricsObject();
   const average = makeAverageObject();
   const weightedAverage = makeAverageObject();
-  const weights = getWeights(reports);
+  const weights = getWeights(reports, dependents);
   const details = {};
 
   reports.forEach(function(report) {
@@ -111,8 +144,10 @@ function calculateAggregates(reports = []) {
 }
 
 module.exports = {
-  evaluate,
-  getWeights,
-  getReportTotals,
   calculateAggregates,
+  evaluate,
+  getDependenciesTree,
+  getDependentsTree,
+  getReportTotals,
+  getWeights,
 };

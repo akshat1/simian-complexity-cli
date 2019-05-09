@@ -1,3 +1,5 @@
+"use strict";
+
 const path = require('path');
 
 function withoutExtension(str) {
@@ -16,5 +18,5 @@ const getDependencyPathRelativeToProjectRoot = function (projectRoot, sourceFile
 
 module.exports = {
   getDependencyPathRelativeToProjectRoot,
-  withoutExtension,
+  withoutExtension
 };

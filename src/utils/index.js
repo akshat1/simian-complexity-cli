@@ -25,5 +25,6 @@
     makeGlobs,
     promisify,
     shouldFilePathBeKept,
+    ...require('./path'),
   };
 })();

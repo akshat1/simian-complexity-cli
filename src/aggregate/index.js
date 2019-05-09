@@ -10,7 +10,7 @@ const {
   getLogger,
   getReportFilePath,
 } = require('../utils');
-const { calculateAggregates } = require('./calculate-aggregates');
+const { calculateAggregates, getDependenciesTree, getDependentsTree } = require('./calculate-aggregates');
 
 const logger = getLogger({ label: 'aggregate' });
 
@@ -32,8 +32,10 @@ async function aggregate(reports) {
     }
   }
 
+  const dependentsTree = getDependentsTree(reports);
+  const dependenciesTree = getDependenciesTree(reports);
   const aggregatedReport = {
-    calculatedAggregates: calculateAggregates(reports),
+    calculatedAggregates: calculateAggregates(reports, dependentsTree),
     generatedAt: (reportGenerationTime).toISOString(),
     gitCommit,
     name: await getReportName(),
@@ -44,6 +46,16 @@ async function aggregate(reports) {
   await fs.writeFile(
     await getReportFilePath(path.join(getSourceDirectoryPath(), 'simian-aggregated-report')),
     JSON.stringify(aggregatedReport, null, 2)
+  );
+
+  await fs.writeFile(
+    await getReportFilePath(path.join(getSourceDirectoryPath(), 'dependents')),
+    JSON.stringify(dependentsTree.edges, null, 2)
+  );
+
+  await fs.writeFile(
+    await getReportFilePath(path.join(getSourceDirectoryPath(), 'dependencies')),
+    JSON.stringify(dependenciesTree.edges, null, 2)
   );
   logger.debug('Done writing to file.');
 }
